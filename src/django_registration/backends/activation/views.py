@@ -160,7 +160,7 @@ class ActivationView(BaseActivationView):
                         "quantity": 1,
                     },
                 ],
-                trial_period_days=4,
+                trial_period_days=10,
                 cancel_at_period_end=True,
                 metadata={
                     "user_in_trial": True,
