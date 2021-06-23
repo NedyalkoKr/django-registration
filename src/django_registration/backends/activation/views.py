@@ -5,6 +5,9 @@ on signup.
 
 """
 
+import stripe
+import djstripe
+from django.contrib import messages
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.sites.shortcuts import get_current_site
@@ -12,11 +15,14 @@ from django.core import signing
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-
+from django.utils import timezone
 from django_registration import signals
+from django.contrib.auth.models import Group
 from django_registration.exceptions import ActivationError
 from django_registration.views import ActivationView as BaseActivationView
 from django_registration.views import RegistrationView as BaseRegistrationView
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 REGISTRATION_SALT = getattr(settings, "REGISTRATION_SALT", "registration")
 
@@ -113,16 +119,59 @@ class ActivationView(BaseActivationView):
     ALREADY_ACTIVATED_MESSAGE = _(
         "The account you tried to activate has already been activated."
     )
+    ACCOUNT_ALREADY_EXIST = ("It seems that you already have an account.")
     BAD_USERNAME_MESSAGE = _("The account you attempted to activate is invalid.")
     EXPIRED_MESSAGE = _("This account has expired.")
     INVALID_KEY_MESSAGE = _("The activation key you provided is invalid.")
     success_url = reverse_lazy("django_registration_activation_complete")
 
-    def activate(self, *args, **kwargs):
+    def activate(self, request, *args, **kwargs):
         username = self.validate_key(kwargs.get("activation_key"))
         user = self.get_user(username)
-        user.is_active = True
-        user.save()
+        customers_group = Group.objects.get(name__iexact="customers")
+        stripe.max_network_retries = 6
+
+        if settings.DEBUG:
+            stripe.api_key = settings.STRIPE_TEST_SECRET_KEY
+            remote_ip = request.META.get('REMOTE_ADDR')
+        else:
+            stripe.api_key = settings.STRIPE_LIVE_SECRET_KEY
+            remote_ip = request.META.get('X-Forwarded-For')[:14]
+
+        # if User.objects.filter(user_ip=remote_ip).exists() or djstripe.models.Customer.objects.filter(email=user.email):
+        #     user.delete()
+        #     raise ActivationError(
+        #         self.ACCOUNT_ALREADY_EXIST, code="account_exist"
+        #     )
+        if djstripe.models.Customer.objects.filter(email=user.email).exists():
+            # user.delete()
+            raise ActivationError(
+                self.ACCOUNT_ALREADY_EXIST, code="account_exist"
+            )
+        else:
+            customer = stripe.Customer.create(
+                email=user.email,
+            )
+            subscription = stripe.Subscription.create(
+                customer=customer.id,
+                items=[
+                    {
+                        "price": settings.STRIPE_PRICE_ID,
+                        "quantity": 1,
+                    },
+                ],
+                trial_period_days=10,
+                cancel_at_period_end=True,
+                metadata={
+                    "user_in_trial": True,
+                },
+            )
+            user.groups.add(customers_group)
+            user.is_customer = True
+            user.user_ip = remote_ip
+            user.is_active = True
+            user.save()
+            messages.add_message(request, messages.SUCCESS, 'account is activated.', 'account-activated')
         return user
 
     def validate_key(self, activation_key):
@@ -136,7 +185,7 @@ class ActivationView(BaseActivationView):
             username = signing.loads(
                 activation_key,
                 salt=REGISTRATION_SALT,
-                max_age=settings.ACCOUNT_ACTIVATION_DAYS * 86400,
+                max_age=settings.ACCOUNT_ACTIVATION_DAYS * 3600,
             )
             return username
         except signing.SignatureExpired:
