@@ -57,139 +57,144 @@ HTML5_EMAIL_RE = (
 # https://ldpreload.com/blog/names-to-reserve
 SPECIAL_HOSTNAMES = [
     # Hostnames with special/reserved meaning.
-    "autoconfig",  # Thunderbird autoconfig
-    "autodiscover",  # MS Outlook/Exchange autoconfig
-    "broadcasthost",  # Network broadcast hostname
-    "isatap",  # IPv6 tunnel autodiscovery
-    "localdomain",  # Loopback
-    "localhost",  # Loopback
-    "wpad",  # Proxy autodiscovery
+    "autoconfig", "autodiscover", "broadcasthost", "isatap", "localdomain",  
+    "localhost", "wpad",
 ]
 
 
 PROTOCOL_HOSTNAMES = [
     # Common protocol hostnames.
-    "ftp",
-    "imap",
-    "mail",
-    "news",
-    "pop",
-    "pop3",
-    "smtp",
-    "usenet",
-    "uucp",
-    "webmail",
-    "www",
+    "bittorent", "idna", "soap", "rtcp", "xmpp", "dccp", "sctp", "isdn", "dtm", "gtp", "ftp",
+    "imap", "mail", "news", "pop", "pop3", "sdp", "smtp", "smb", "cifs", "irc", "netbeui",
+    "gprs", "rarp", "usenet", "rvsp", "gopher", "uucp", "webmail", "www", "bgp", "dhcp",
+    "ftp", "sftp", "dns", "ldap", "icmp", "igmp", "arp", "ndp", "ospf", "ppp", "mac",
+    "msnp", "bit", "dsl", "fddi", "ipsec", "ethernet", "snmp", "ssh", "telnet", "tftp",
+    "mqtt", "nntp", "ntp", "pop", "pptp", "tls", "ssl", "sip", "http", "https", "rap",
+    "rsvp", "rtp", "spx", "netware", "ipx", "ncp", "nfs", "upnp", "radius", "vnc", "wins",
+    "kerberos", "finger", "whois", "echo", "tacacs", "bootp", "rpc", "xdmcp", "appletalk",
+    "openvpn", "vpn",
 ]
 
+STOP_WORDS = [
+    "about", "above", "across", "after", "afterwards", "again", "against", "all", "ain",
+    "almost", "alone", "along", "already", "also", "although", "always", "am", "among",
+    "amongst", "amoungst", "amount", "an", "and", "another", "any", "anyhow", "anyone", "anything",
+    "anyway", "anywhere", "are", "aren", "around", "as", "at", "back", "be", "became",
+    "because", "become", "becomes", "becoming", "been", "before", "beforehand", "behind",
+    "being", "below", "beside", "besides", "between", "beyond", "bill", "both", "bottom",
+    "but", "by", "call", "can", "cannot", "cant", "co", "computer", "con", "could", "couldnt",
+    "cry", "de", "describe", "detail", "do", "done", "down", "due", "during", "each", "eg",
+    "eight", "either", "eleven", "else", "elsewhere", "empty", "enough", "etc", "even", "ever",
+    "every", "everyone", "everything", "everywhere", "except", "few", "fifteen", "fify",
+    "fill", "find", "fire", "first", "five", "for", "former", "formerly", "forty", "found", "four",
+    "from", "front", "full", "further", "get", "give", "go", "had", "has", "hasnt", "have", "he",
+    "hence", "her", "here", "hereafter", "hereby", "herein", "hereupon", "hers", "herse", "him",
+    "himse", "his", "how", "however", "hundred", "i", "ie", "if", "in", "inc", "indeed", "interest",
+    "into", "is", "it", "its", "itself", "itse", "keep", "last", "latter", "latterly", "least", "less",
+    "ltd", "made", "many", "may", "me", "meanwhile", "might",  "mill", "mine", "more", "moreover",
+    "most", "mostly", "move", "much", "must", "my", "mysel", "name", "namely", "neither", "never",
+    "nevertheless", "next", "nine", "no", "nobody", "none", "noone", "nor", "not", "nothing",
+    "now", "nowhere", "of", "off", "often", "on", "once", "one", "only","onto", "or", "other",
+    "others", "otherwise", "our", "ours", "ourselves", "out", "over", "own", "part", "per", "perhaps",
+    "please", "put", "rather", "re", "same", "see", "seem", "seemed", "seeming", "seems", "serious",
+    "several", "she", "should", "show", "side", "since", "sincere", "six", "sixty", 
+    "so", "some", "somehow", "someone", "something","sometime", "sometimes", "somewhere",
+    "still", "such", "system", "take", "ten", "than", "that", "the", "their", "them", "themselves",
+    "then", "thence", "there", "thereafter", "thereby", "therefore", "therein", "thereupon", "these",
+    "they", "thick", "thin", "third", "this", "those", "though", "three", "through", "throughout",
+    "thru", "thus", "to", "together", "too", "top", "toward", "towards", "twelve", "twenty",
+    "two", "un", "under", "until", "up", "upon", "us", "very", "via", "was", "we", "wasn",
+    "weren", "well", "were", "what", "whatever", "when", "whence", "whenever", "where", "whereafter",
+    "whereas", "whereby", "wherein", "whereupon", "wherever", "whether", "which", "while",
+    "whither", "who", "whoever", "whole", "whom", "whose", "why", "will", "with", "within",
+    "without", "would", "wouldn", "won", "yet", "you", "your", "yours", "yourself", "yourselves",
+]
+
+BRANDS = [
+    "aoc", "aldelco", "apache", "audi", "akadema", "avon", "aig", "adata", "astonmartin", "alfaromeo", "apple", "arris", "annazaradna", "asrock", "abtivan", "ainope", "alienware", "aiwa", "att", "annique", "alturaphoto", "amd", "acura", "aiko", "adobe", "asus", "arlo", "aws",
+    "activision", "allianz", "android", "airbnb", "aeropostale", "amazon", "americanexpress", "adidas", "accenture", "autodesk", "alibaba", "adaptec", "spalding", "sigma", "sears", "supersonic", "suzuki", "saturn", "sceptre", "sanyo", "skoda", "siemens", "sprite", "stella", "sharppebble", "starbucks", "spectrum", "subaru", "subway", "shopify", "skydio", "singer", "synology", "yahoo", "yongnuo", "yeepin", "yamaha", "yelp", "youtube", "zorrosounds", "zscaler", "zyxel", "zotac", "zillow", "zillow", "zara", "walgreens", "wilson", "wrigley", "westinghouse", "worldofthis", "warnerbrothers", "wellsfargo", "wellsfargo", "xidax", "xiaomi", "xmart", "whirlpool", "wacom", "wayfair", "westernunion", "wynd", "wikipedia", "westerndigital", "walmart", "windows", "xerox", "xiaomi", "xiaomi", "xfinity", "vodafone", "vespa", "visa", "verizon", "vitade", "versace", "viagra", "vtech", "viewsonic", "vmware", "vaio", "volkswagen", "victoriassecret", "volvo", "verizon", "ubisoft", "ubeesize", "ubiquiti", "unilever", "uber", "ups", "vizio", "opel", "oldelpaso", "otterbox", "ralphlauren", "revlon", "oracle", "rover", "rexona", "roku", "reuters", "qnap", "reebok", "razer", "russelhobbs", "rollsroyce", "rowenta", "playboy", "plymouth", "philips", "panasonic", "polestar", "practiker", "paloaltonetworks", "pillsbury", "pontiac", "peugeot", "paypal", "pepsi", "playstation", "pfsense", "porsche", "prada", "polaroid", "toshiba", "tivo", "tefal", "target", "tuffy", "tplink", "terramaster", "tyan", "transcend", "tiffany", "tenda", "twitch", "sandisk", "squarespace", "splunk", "swarovski", "siata", "shelby", "toyota", "tissot", "tencent", "nissan", "newegg", "neo", "netflix", "netgear", "nintendo", "google", "samsung" , "seagate", "seiko", "sonicwall", "nava", "nvidia", "nginx", "nestle", "brentwood", "bing", "buick", "burgerking", "bugatti", "budlight", "belkin", "biocera", "bmw", "bose", "brita", "bentley", "budweiser", "burberry", "broadcom", "biostar", "brocade", "blizzard", "bestbuy", "boeing", "cocacola", "camco", "cyberpower", "chrysler", "cadillac", "chevron", "compucase", "citizen", "citrix", "crown", "creativelabs", "cisco", "cuisinart", "colgate", "calvinklein", "cnn", "citroen", "cheerios", "chase", "canon", "chanel", "cartier", "hsbc", "hulu", "disney", "danone", "dewalt", "diesel", "deegotech", "dior", "dell", "duracell", "daewoo", "doordash", "dowjones", "domestos", "dominos", "gucci", "dyson", "facebook", "fiat", "hyundai", "hellmanns", "equinox", "ikea", "intel", 
+]
+
+
+COUNTRIES = [
+    "afghanistan", "albania", "algeria", "andorra", "angola", "antigua", "argentina", "armenia", "australia", "austria", "azerbaijan", "bahamas", "bahrain", "barbados", "belarus", "belgium", "belize", "benin", "bhutan", "bolivia", "botswana", "bosnia", "brazil", "brunei", "bulgaria", "burkinafaso", "burkina", "burundi", "cambodia", "cameroon", "canada", "chad", "chile", "china", "colombia", "comoros", "congo", "costarica", "croatia", "cuba", "cyprus", "czechia", "denmark", "djibouti", "dominica", "ecuador", "egypt", "elsalvador", "eritrea", "estonia", "ethiopia", "fiji", "finland", "france", "gabon", "gambia", "georgia", "germany", "ghana", "greece", "grenada", "guatemala", "guinea", "guyana", "haiti", "honduras", "hungary", "iceland", "india", "indonesia", "iran", "iraq", "ireland", "israel", "italy", "jamaica", "japan", "jordan", "kazakhstan", "kenya", "kiribati", "kuwait", "kyrgyzstan", "laos", "latvia", "lebanon", "lesotho", "liberia", "libya", "liechtenstein", "lithuania", "luxembourg", "madagascar", "malawi", "malaysia", "maldives", "mali", "malta", "marshallislands", "mauritania", "mauritius", "mexico", "micronesia", "moldova", "monaco", "mongolia", "montenegro", "morocco", "mozambique", "myanmar", "namibia", "nauru", "nepal", "netherlands", "newzealand", "nicaragua", "niger", "nigeria", "northkorea", "northmacedonia", "macedonia", "norway", "oman", "pakistan", "palau", "panama", "palestine", "panama", "paraguay", "peru", "philippines", "poland", "portugal", "qatar", "romania", "russia", "rwanda", "samoa", "sanmarino", "saudiarabia", "senegal", "serbia", "seychelles", "sierraleone", "singapore", "slovakia", "slovenia", "somalia", "southafrica", "southkorea", "southsudan", "sudan", "spain", "srilanka", "suriname", "sweden", "switzerland", "syria", "tajikistan", "tanzania", "thailand", "togo", "tonga", "trinidad", "tobago", "tunisia", "turkey", "turkmenistan", "tuvalu", "uganda", "ukraine", "uruguay", "unitedstatesofamerica", "america", "usa", "uzbekistan", "vanuatu", "venezuela",  "vietnam",  "yemen",  "zambia",  "zimbabwe",
+]
 
 CA_ADDRESSES = [
     # Email addresses known used by certificate authorities during
     # verification.
-    "admin",
-    "administrator",
-    "hostmaster",
-    "info",
-    "is",
-    "it",
-    "mis",
-    "postmaster",
-    "root",
-    "ssladmin",
-    "ssladministrator",
-    "sslwebmaster",
-    "sysadmin",
-    "webmaster",
+    "admin", "superadmin", "superuser", "administrator", "hostmaster", "info", "is",
+    "it", "mis", "postmaster", "root", "toor", "ssladmin", "ssladministrator", "sslwebmaster",
+    "sysadmin", "webmaster",
 ]
-
 
 RFC_2142 = [
     # RFC-2142-defined names not already covered.
-    "abuse",
-    "marketing",
-    "noc",
-    "sales",
-    "security",
-    "support",
+    "abuse", "marketing", "noc", "sales", "security", "support",
 ]
-
 
 NOREPLY_ADDRESSES = [
     # Common no-reply email addresses.
-    "mailer-daemon",
-    "nobody",
-    "noreply",
-    "no-reply",
+    "mailer-daemon", "nobody", "noreply", "no-reply",
 ]
-
 
 SENSITIVE_FILENAMES = [
     # Sensitive filenames.
-    "clientaccesspolicy.xml",  # Silverlight cross-domain policy file.
-    "crossdomain.xml",  # Flash cross-domain policy file.
-    "favicon.ico",
-    "humans.txt",
-    "keybase.txt",  # Keybase ownership-verification URL.
-    "robots.txt",
-    ".htaccess",
-    ".htpasswd",
+    "clientaccesspolicy.xml", "crossdomain.xml",  "favicon.ico", "humans.txt",
+    "keybase.txt","robots.txt", ".htaccess", ".htpasswd",
 ]
-
 
 OTHER_SENSITIVE_NAMES = [
     # Other names which could be problems depending on URL/subdomain
     # structure.
-    "account",
-    "accounts",
-    "auth",
-    "authorize",
-    "blog",
-    "buy",
-    "cart",
-    "clients",
-    "contact",
-    "contactus",
-    "contact-us",
-    "copyright",
-    "dashboard",
-    "doc",
-    "docs",
-    "download",
-    "downloads",
-    "enquiry",
-    "faq",
-    "help",
-    "inquiry",
-    "license",
-    "login",
-    "logout",
-    "me",
-    "myaccount",
-    "oauth",
-    "pay",
-    "payment",
-    "payments",
-    "plans",
-    "portfolio",
-    "preferences",
-    "pricing",
-    "privacy",
-    "profile",
-    "register",
-    "secure",
-    "settings",
-    "signin",
-    "signup",
-    "ssl",
-    "status",
-    "store",
-    "subscribe",
-    "terms",
-    "tos",
-    "user",
-    "users",
-    "weblog",
-    "work",
+    "account", "accounts", "auth", "authorize", "blog", "buy", "create", "cart", "clients",
+    "contact", "contactus", "contact-us", "checkout", "copyright", "dashboard", "doc", "docs",
+    "download", "downloads", "enquiry", "faq", "edit", "help", "inquiry", "license", "login",
+    "logout", "me", "myaccount", "new", "oauth", "pay", "payment", "payments", "plans",
+    "portfolio", "preferences", "pricing", "privacy", "profile", "register", "secure",
+    "settings", "signin", "signup", "ssl", "ssdp", "status", "superroot", "store",
+    "subscribe", "reset", "resets", "terms", "tos", "user", "users", "update", "weblog", "work",
+    "password", "passwords", "route", "routes", "view", "views", "token", "tokens", "slug", "slugs",
+    "path", "paths", "url", "urls", "base", "app", "apps", "test", "tests", "settings", 
+    "event", "events", "updates", "context", "contexts", "person", "detail",
+    "details", "item", "items", "form", "forms", "delete", "update", "snippets", "snippet",
+    "places", "place", "food", "recipe", "job", "jobs", "solution", "solutions",
+]
+
+FILE_EXTENSIONS = [
+    "asp", "aspx", "arj", "apk", "aiff", "aif", "avi", "bat", "bak", "bin", "bmp", "cda", "cue",
+    "cpp", "cab", "cfg", "cpl", "cur", "cgi", "csr", "cer", "cfm", "css", "com", "class",
+    "java", "jsp", "csv", "cvs", "deb", "dat", "dbf", "dll", "dmp", "drv", "dmg", "dwg",
+    "dxf", "dif", "dtd", "doc", "docx", "eps", "email", "eml", "emlx", "exe", "flv", "fnt",
+    "iso", "icns", "ini", "ico", "gadget", "gif", "gpx", "hqx", "htm", "heic", "html", "jpg",
+    "jar", "jpeg", "kmz", "mac", "msi", "max", "mkv", "mpa", "msg", "map", "mdb", "mdf", "mid",
+    "midi", "mov", "mpg", "mpeg", "lnk", "lua", "log", "nes", "png", "pdf", "part", "php", "ppt",
+    "pkg", "pptx", "psd", "psp", "pst", "prf", "rom", "rtf", "rss", "rar", "rpm", "sit", "sys",
+    "srt", "swf", "sql", "sln", "swift", "tar", "tif", "ttf", "tmp", "thm", "tex", "tiff", "torrent",
+    "txt", "svg", "odt", "ods", "ogg", "otf", "oft", "ost", "vcd", "vcf", "vob", "vcxproj", "wav",
+    "wsf", "wma", "wmv", "wpd", "wpl", "wpd", "wps", "xlsm", "xml", "xhtml", "xls", "xlsx",
+    "zip", "zipx",
+]
+
+HTML_TAGS = [
+    "abbr", "address", "applet", "area", "audio", "base", "basefont", "bdi", "blockquote",
+    "code", "video", "var", "table", "summary", "tbody", "title", "thead", "track", "svg",
+    "sub", "sup", "style", "span", "div", "source", "small", "section", "article", "progress",
+    "picture", "figure", "param", "object", "noscript", "nav", "meter", "meta", "main", "mark",
+    "header", "body", "html", "iframe", "label", "kbd", "legend", "link", "map", "img", "head",
+    "figcaption", "embed", "fieldset", "dialog", "details", "datalist", "canvas", "button", 
+    "script", "select", "center", "strike", "textarea", "source", "option", "optgroup", "object",
+    "font", "acronym",
+]
+
+TECH = [
+    "python", "java", "php", "jquery", "javscript", "bootstrap", "java", "sql", "css", "rust",
+    "django", "flask", "laravel",
+]
+
+RACIST_WORDS = [
+    "yankee", "redskin", "russki", "chink", "coon", "colored", "niggar", "nigger",
+    "nigglet", "niglet", "hick", "whitey", "trash", "negro", "raghead",
 ]
 
 
@@ -201,6 +206,13 @@ DEFAULT_RESERVED_NAMES = (
     + NOREPLY_ADDRESSES
     + SENSITIVE_FILENAMES
     + OTHER_SENSITIVE_NAMES
+    + STOP_WORDS
+    + FILE_EXTENSIONS
+    + RACIST_WORDS
+    + HTML_TAGS
+    + TECH
+    + BRANDS
+    + COUNTRIES
 )
 
 
@@ -209,7 +221,6 @@ class ReservedNameValidator:
     """
     Validator which disallows many reserved names as form field
     values.
-
     """
 
     def __init__(self, reserved_names=DEFAULT_RESERVED_NAMES):
